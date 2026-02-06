@@ -818,11 +818,108 @@ export default function FinancialWarrior() {
             {/* Leaky Bucket */}
             <Card className="bg-white/80 backdrop-blur-sm border-2 border-blue-200 shadow-xl">
               <CardHeader>
-                <CardTitle className="text-center text-2xl">Plug Your Financial Leaks</CardTitle>
-                <p className="text-center text-gray-600">Click on each category to reclaim your money</p>
+                <CardTitle className="text-center text-2xl">Track Your Financial Leaks</CardTitle>
+                <p className="text-center text-gray-600">Enter your monthly spending in each category</p>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-6">
+                {/* Input fields for leak amounts */}
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <FaPlay className="text-blue-600" />
+                      Subscriptions
+                    </Label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                      <Input
+                        type="number"
+                        value={financeData.leaks.subscriptions || ''}
+                        onChange={(e) => setFinanceData(prev => ({
+                          ...prev,
+                          leaks: { ...prev.leaks, subscriptions: Number(e.target.value) }
+                        }))}
+                        className="pl-8 h-12 bg-white/80 backdrop-blur-sm border-2 border-blue-300 focus:border-blue-500 rounded-xl"
+                        placeholder="0"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <FaStar className="text-purple-600" />
+                      Impulse Buys
+                    </Label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                      <Input
+                        type="number"
+                        value={financeData.leaks.impulse || ''}
+                        onChange={(e) => setFinanceData(prev => ({
+                          ...prev,
+                          leaks: { ...prev.leaks, impulse: Number(e.target.value) }
+                        }))}
+                        className="pl-8 h-12 bg-white/80 backdrop-blur-sm border-2 border-purple-300 focus:border-purple-500 rounded-xl"
+                        placeholder="0"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <FaGem className="text-pink-600" />
+                      Dining Out
+                    </Label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                      <Input
+                        type="number"
+                        value={financeData.leaks.dining || ''}
+                        onChange={(e) => setFinanceData(prev => ({
+                          ...prev,
+                          leaks: { ...prev.leaks, dining: Number(e.target.value) }
+                        }))}
+                        className="pl-8 h-12 bg-white/80 backdrop-blur-sm border-2 border-pink-300 focus:border-pink-500 rounded-xl"
+                        placeholder="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Leaky Bucket Visualization */}
                 <LeakyBucket leaks={financeData.leaks} onLeakClick={handleLeakClick} />
+
+                {/* Total Leaks Display */}
+                {(financeData.leaks.subscriptions > 0 || financeData.leaks.impulse > 0 || financeData.leaks.dining > 0) && (
+                  <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-6 border-2 border-orange-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600 mb-1">Total Monthly Leaks</p>
+                        <p className="text-3xl font-bold text-red-600">
+                          ₹{(financeData.leaks.subscriptions + financeData.leaks.impulse + financeData.leaks.dining).toLocaleString('en-IN')}
+                        </p>
+                      </div>
+                      <div className="flex flex-col items-end">
+                        <p className="text-sm text-gray-600 mb-2">Reclaim this money</p>
+                        <Button
+                          onClick={() => {
+                            setFinanceData(prev => ({
+                              ...prev,
+                              leaks: { subscriptions: 0, impulse: 0, dining: 0 }
+                            }))
+                            setPowerLevel(Math.min(100, powerLevel + 15))
+                            showCoaching(
+                              `Amazing! You just optimized ₹${(financeData.leaks.subscriptions + financeData.leaks.impulse + financeData.leaks.dining).toLocaleString('en-IN')} in monthly spending!`,
+                              'all_leaks_fixed'
+                            )
+                          }}
+                          className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl h-10 px-6"
+                        >
+                          Optimize All Leaks
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
