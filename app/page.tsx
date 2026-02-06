@@ -81,9 +81,9 @@ function AllocationWheel({ data }: { data: FinanceData }) {
   const emergencyFund = data.monthlyBills * data.emergencyMonths
 
   const slices = [
-    { label: 'SIP Investment', value: data.monthlySIP, color: 'from-teal-400 to-blue-500', icon: FaRocket },
-    { label: 'Emergency Fund', value: emergencyFund / 12, color: 'from-amber-400 to-orange-500', icon: FaShieldAlt },
-    { label: 'Available', value: Math.max(0, surplus - data.monthlySIP), color: 'from-emerald-400 to-green-500', icon: FaGem },
+    { label: 'SIP Investment', value: data.monthlySIP, color: '#14b8a6', colorEnd: '#3b82f6', icon: FaRocket },
+    { label: 'Emergency Fund', value: emergencyFund / 12, color: '#fbbf24', colorEnd: '#f97316', icon: FaShieldAlt },
+    { label: 'Available', value: Math.max(0, surplus - data.monthlySIP), color: '#34d399', colorEnd: '#22c55e', icon: FaGem },
   ]
 
   const total = slices.reduce((sum, s) => sum + s.value, 0)
@@ -102,8 +102,8 @@ function AllocationWheel({ data }: { data: FinanceData }) {
           <defs>
             {slices.map((slice, i) => (
               <linearGradient key={i} id={`gradient-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" className={`${slice.color.split(' ')[0].replace('from-', 'text-')}`} stopColor="currentColor" />
-                <stop offset="100%" className={`${slice.color.split(' ')[2].replace('to-', 'text-')}`} stopColor="currentColor" />
+                <stop offset="0%" stopColor={slice.color} />
+                <stop offset="100%" stopColor={slice.colorEnd} />
               </linearGradient>
             ))}
             <filter id="glow">
@@ -159,6 +159,7 @@ function AllocationWheel({ data }: { data: FinanceData }) {
       <div className="absolute -bottom-24 left-0 right-0 flex justify-center gap-4">
         {slices.map((slice, i) => {
           const Icon = slice.icon
+          const iconColors = ['text-teal-500', 'text-amber-500', 'text-emerald-500']
           return (
             <div
               key={i}
@@ -170,7 +171,7 @@ function AllocationWheel({ data }: { data: FinanceData }) {
               onMouseEnter={() => setHoveredSlice(slice.label)}
               onMouseLeave={() => setHoveredSlice(null)}
             >
-              <Icon className={`text-${slice.color.split('-')[1]}-500`} />
+              <Icon className={iconColors[i]} />
               <span className="text-xs font-medium">{slice.label}</span>
             </div>
           )
