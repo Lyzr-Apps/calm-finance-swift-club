@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "User Interaction",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "finance_mentor_agent",
+      "type": "Agent",
+      "label": "Finance Mentor Agent",
+      "nodeCategory": "agent",
+      "agent_id": "6985ab8d3b50e9c8d7d7e9f2"
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Agent Response",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    {
+      "source": "input_node",
+      "target": "finance_mentor_agent"
+    },
+    {
+      "source": "finance_mentor_agent",
+      "target": "output_node"
+    }
+  ]
+}

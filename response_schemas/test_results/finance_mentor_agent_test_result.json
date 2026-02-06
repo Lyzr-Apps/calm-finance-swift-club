@@ -1,0 +1,28 @@
+{
+  "agent_name": "Finance Mentor Agent",
+  "agent_id": "6985ab8d3b50e9c8d7d7e9f2",
+  "test_message": "Can you summarize my complete financial plan?",
+  "expected_purpose": "assistant",
+  "timestamp": "2026-02-06T08:52:55.763435",
+  "is_valid_json": true,
+  "validation_errors": [],
+  "actual_response": {
+    "status": "success",
+    "result": {
+      "message": "Let's take a look at all the wonderful progress we've made together on your financial journey! You\u2019ve taken important steps to set your financial goals, establish a realistic timeline, understand your risk tolerance, and determine your contributions. This process is all about creating a roadmap that aligns with your life aspirations and financial capacity.",
+      "coaching_type": "summary",
+      "current_step": "5",
+      "projections": {
+        "monthly_contribution": 0,
+        "projected_balance": 0,
+        "time_horizon_years": 0
+      },
+      "next_action_suggestion": "Feel free to review each step if you'd like to make adjustments, or celebrate by sharing your progress with someone close to you."
+    },
+    "metadata": {
+      "agent_name": "Finance Mentor Agent",
+      "timestamp": "2023-11-03T10:15:30Z"
+    }
+  },
+  "raw_response": "{\n  \"status\": \"success\",\n  \"result\": {\n    \"message\": \"Let's take a look at all the wonderful progress we've made together on your financial journey! You\u2019ve taken important steps to set your financial goals, establish a realistic timeline, understand your risk tolerance, and determine your contributions. This process is all about creating a roadmap that aligns with your life aspirations and financial capacity.\",\n    \"coaching_type\": \"summary\",\n    \"current_step\": \"5\",\n    \"projections\": {\n      \"monthly_contribution\": 0,\n      \"projected_balance\": 0,\n      \"time_horizon_years\": 0\n    },\n    \"next_action_suggestion\": \"Feel free to review each step if you'd like to make adjustments, or celebrate by sharing your progress with someone close to you.\"\n  },\n  \"metadata\": {\n    \"agent_name\": \"Finance Mentor Agent\",\n    \"timestamp\": \"2023-11-03T10:15:30Z\"\n  }\n}"
+}

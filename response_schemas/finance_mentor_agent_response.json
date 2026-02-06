@@ -1,0 +1,64 @@
+{
+  "agent_name": "Finance Mentor Agent",
+  "agent_id": "6985ab8d3b50e9c8d7d7e9f2",
+  "agent_purpose": "financial_mentoring",
+  "description": "Response schema for Finance Mentor Agent - includes coaching messages, interaction types, step tracking, financial projections, and next action suggestions",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "message": "string",
+      "coaching_type": "string",
+      "current_step": "string",
+      "projections": {
+        "monthly_contribution": "number",
+        "projected_balance": "number",
+        "time_horizon_years": "number"
+      },
+      "next_action_suggestion": "string"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "message": "Let's take a look at all the wonderful progress we've made together on your financial journey! You\u2019ve taken important steps to set your financial goals, establish a realistic timeline, understand your risk tolerance, and determine your contributions. This process is all about creating a roadmap that aligns with your life aspirations and financial capacity.",
+      "coaching_type": "summary",
+      "current_step": "5",
+      "projections": {
+        "monthly_contribution": 0,
+        "projected_balance": 0,
+        "time_horizon_years": 0
+      },
+      "next_action_suggestion": "Feel free to review each step if you'd like to make adjustments, or celebrate by sharing your progress with someone close to you."
+    },
+    "metadata": {
+      "agent_name": "Finance Mentor Agent",
+      "timestamp": "2023-11-03T10:15:30Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-06T08:52:55.763974",
+  "test_message_used": "Hello, provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "message": "Let's take a look at all the wonderful progress we've made together on your financial journey! You\u2019ve taken important steps to set your financial goals, establish a realistic timeline, understand your risk tolerance, and determine your contributions. This process is all about creating a roadmap that aligns with your life aspirations and financial capacity.",
+      "coaching_type": "summary",
+      "current_step": "5",
+      "projections": {
+        "monthly_contribution": 0,
+        "projected_balance": 0,
+        "time_horizon_years": 0
+      },
+      "next_action_suggestion": "Feel free to review each step if you'd like to make adjustments, or celebrate by sharing your progress with someone close to you."
+    },
+    "metadata": {
+      "agent_name": "Finance Mentor Agent",
+      "timestamp": "2023-11-03T10:15:30Z"
+    }
+  },
+  "test_passed": true
+}
