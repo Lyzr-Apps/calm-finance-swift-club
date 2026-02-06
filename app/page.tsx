@@ -88,6 +88,20 @@ function AllocationWheel({ data }: { data: FinanceData }) {
 
   const total = slices.reduce((sum, s) => sum + s.value, 0)
 
+  // Show placeholder if no data
+  if (total === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full mb-6">
+          <FaChartLine className="text-gray-400 text-5xl" />
+        </div>
+        <p className="text-gray-600 text-lg">
+          Complete Step 1 & 2 to see your allocation breakdown
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="relative w-80 h-80 mx-auto perspective-1000">
       <div
@@ -123,6 +137,12 @@ function AllocationWheel({ data }: { data: FinanceData }) {
             const isHovered = hoveredSlice === slice.label
             const scale = isHovered ? 1.1 : 1
 
+            // Calculate label position
+            const labelRadius = 60
+            const labelAngle = ((midAngle - 90) * Math.PI) / 180
+            const labelX = 100 + labelRadius * Math.cos(labelAngle)
+            const labelY = 100 + labelRadius * Math.sin(labelAngle)
+
             return (
               <g
                 key={i}
@@ -141,6 +161,18 @@ function AllocationWheel({ data }: { data: FinanceData }) {
                     transformOrigin: '100px 100px',
                   }}
                 />
+                {/* Value label on slice */}
+                {angle > 15 && (
+                  <text
+                    x={labelX}
+                    y={labelY}
+                    textAnchor="middle"
+                    className="text-xs font-bold fill-white pointer-events-none"
+                    style={{ textShadow: '0 0 4px rgba(0,0,0,0.5)' }}
+                  >
+                    ₹{slice.value.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                  </text>
+                )}
               </g>
             )
           })}
@@ -155,24 +187,35 @@ function AllocationWheel({ data }: { data: FinanceData }) {
         </svg>
       </div>
 
-      {/* Legend with hover effect */}
-      <div className="absolute -bottom-24 left-0 right-0 flex justify-center gap-4">
+      {/* Legend with hover effect and values */}
+      <div className="absolute -bottom-32 left-0 right-0 flex flex-col gap-3">
         {slices.map((slice, i) => {
           const Icon = slice.icon
           const iconColors = ['text-teal-500', 'text-amber-500', 'text-emerald-500']
+          const percentage = total > 0 ? ((slice.value / total) * 100).toFixed(1) : 0
           return (
             <div
               key={i}
-              className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300 ${
+              className={`flex items-center justify-between gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${
                 hoveredSlice === slice.label
-                  ? 'bg-white shadow-lg scale-110'
-                  : 'bg-white/60 backdrop-blur-sm'
+                  ? 'bg-white shadow-lg scale-105'
+                  : 'bg-white/80 backdrop-blur-sm'
               }`}
               onMouseEnter={() => setHoveredSlice(slice.label)}
               onMouseLeave={() => setHoveredSlice(null)}
             >
-              <Icon className={iconColors[i]} />
-              <span className="text-xs font-medium">{slice.label}</span>
+              <div className="flex items-center gap-3">
+                <Icon className={`${iconColors[i]} text-xl`} />
+                <span className="text-sm font-semibold text-gray-800">{slice.label}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-lg font-bold text-gray-900">
+                  ₹{slice.value.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                </span>
+                <span className="text-sm text-gray-500 min-w-[3rem] text-right">
+                  {percentage}%
+                </span>
+              </div>
             </div>
           )
         })}
@@ -1058,7 +1101,7 @@ export default function FinancialWarrior() {
             </div>
 
             {/* 3D Allocation Wheel */}
-            <div className="py-12">
+            <div className="py-12 pb-40">
               <AllocationWheel data={financeData} />
             </div>
 
